@@ -1,0 +1,13 @@
+{
+  "name": "Test",
+  "version": "0.0.1",
+  "description": "Test",
+  "main": "index.html",
+  "window": {
+    "width": 400,
+    "height": 520,
+    "show": true,
+    "title": "CMD",
+    "toolbar": false
+  }
+}
