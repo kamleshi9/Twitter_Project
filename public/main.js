@@ -1,25 +1,11 @@
 /**
  * Created by kamlesh.m on 11-Aug-15.
  **/
+//function displayTest(string){
+//    document.body.appendChild(document.createElement('p').appendChild(document.createTextNode(string)).parentNode);
+//}
 
-function removePreviousTweets() {
-    var previousTweetsList = document.getElementById("tweetsList");
-    if (previousTweetsList !== null)
-        previousTweetsList.parentNode.removeChild(previousTweetsList);
-}
-
-function displayTest(string){
-    document.body.appendChild(document.createElement('p').appendChild(document.createTextNode(string)).parentNode);
-}
-
-function displayTweets(tweetsArray) {
-    var tweetUnorderedList = document.createElement('ul');
-    tweetUnorderedList.setAttribute("id", "tweetsList");
-    tweetsArray.forEach(function(tweet){
-        tweetUnorderedList.appendChild(document.createElement('li').appendChild(document.createTextNode(tweet)).parentNode);
-    });
-    document.body.appendChild(tweetUnorderedList);
-}
+var tweetList;
 
 var inputElement = document.getElementById("handleInput");
 inputElement.addEventListener("keydown",function(event){
@@ -27,9 +13,10 @@ inputElement.addEventListener("keydown",function(event){
         var req = new XMLHttpRequest();
         req.open("GET", "http://localhost:3000/handle?name="+inputElement.value, false);
         req.send(null);
-        removePreviousTweets();
-        if(req.status < 400)
-            displayTweets(JSON.parse(req.responseText));
+        if(req.status < 400) {
+            tweetList = new TweetList(inputElement.value,JSON.parse(req.responseText));
+            tweetList.display();
+        }
         else
             console.log('Cannot fetch tweets');
     }
