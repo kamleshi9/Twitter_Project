@@ -1,0 +1,15 @@
+{
+  "name": "tweet-for-handle",
+  "version": "1.0.0",
+  "description": "A simple server which returns an tweets of a handle",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kamlesh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "twitter": ""
+  }
+}
