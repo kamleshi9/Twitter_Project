@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/handle',function(req,res){
-    client.get('statuses/user_timeline.json',{screen_name:req.query['name']}, function(error, tweets, response){
+    client.get('statuses/user_timeline.json', {screen_name: req.query['name']}, function (error, tweets) {
         //console.log(res);
         if(error){
             console.log(error);

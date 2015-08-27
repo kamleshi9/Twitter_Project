@@ -31,6 +31,6 @@ inputElement.addEventListener("keydown",function(event){
         if(req.status < 400)
             displayTweets(JSON.parse(req.responseText));
         else
-            console.log('Something broke!');
+            console.log('Cannot fetch tweets');
     }
 });
