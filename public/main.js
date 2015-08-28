@@ -15,7 +15,7 @@ inputElement.addEventListener("keydown",function(event){
         req.send(null);
         if(req.status < 400) {
             tweetList = new TweetList(inputElement.value,JSON.parse(req.responseText));
-            tweetList.display();
+            Display.currentTweetList();
         }
         else
             console.log('Cannot fetch tweets');

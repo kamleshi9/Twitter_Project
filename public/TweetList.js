@@ -9,21 +9,6 @@ function TweetList(handle,tweetTextArray){
     this.atTheRates = getTagSet("atTheRates");
     this.hashTags = getTagSet("hashTags");
 
-    this.display = function(){
-        removeTweetListFromDOM();
-        var tweetUnorderedList = document.createElement('ul');
-        tweetUnorderedList.setAttribute("id", "tweetsList");
-        this.tweets.forEach(function(tweet){
-            tweetUnorderedList.appendChild(document.createElement('li').appendChild(document.createTextNode(tweet.text)).parentNode);
-        });
-        document.body.appendChild(tweetUnorderedList);
-    };
-
-    function removeTweetListFromDOM() {
-        var previousTweetsList = document.getElementById("tweetsList");
-        if (previousTweetsList !== null)
-            previousTweetsList.parentNode.removeChild(previousTweetsList);
-    }
     function getArrayOfTweetObjects() {
         tweetTextArray.forEach(function(tweetText){
             tweets.push(new Tweet(tweetText));
@@ -37,5 +22,6 @@ function TweetList(handle,tweetTextArray){
                tagSet.add(tag);
            });
         });
+        return tagSet;
     }
 }
