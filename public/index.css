@@ -1,15 +1,14 @@
-#inputDev {
+#inputDiv {
     width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
-#tweetListDev {
+#displayDiv {
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
     height: auto;
 }
-
 #atTheRate {
     width:200px;
     float:left;

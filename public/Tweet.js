@@ -6,9 +6,10 @@ function Tweet(textContent){
     this.text = textContent;
     this.atTheRates = getSetOfWordsByTag("@");
     this.hashTags = getSetOfWordsByTag("#");
+    this.domTag = getDomTag();
 
-    function getSetOfWordsByTag(symbol){
-        var regularExpression = new RegExp("\\"+symbol +"(\\w+)","g");
+    function getSetOfWordsByTag(tag){
+        var regularExpression = new RegExp("\\"+tag +"(\\w+)","g");
         var words = new Set(),
             word;
         while(word = regularExpression.exec(textContent)){
@@ -16,10 +17,9 @@ function Tweet(textContent){
         }
         return words;
     }
+
+    function getDomTag(){
+        return document.createElement("li").appendChild(document.createTextNode(textContent)).parentNode;
+    }
 }
 
-//var tmp = new Tweet("@kamlesh #jasa. #jasdb_ajsb @direct_i. asks");
-//
-//console.log(tmp.text);
-//console.log(tmp.atTheRates);
-//console.log(tmp.hashTags);
