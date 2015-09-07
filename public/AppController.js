@@ -7,29 +7,39 @@ function AppController(mainDiv){
     this.hashTagSet = new Set();
     this.atTheRateSet = new Set();
     this.domElement = new DomElement(mainDiv);
+    initEventListener.bind(this)();
 
-    this.domElement.handleInput.addEventListener("keydown",function(event){
-        if(event.keyCode === 13) {
-            var req = new XMLHttpRequest();
-            req.open("GET", "http://localhost:3000/handle?name="+this.domElement.handleInput.value, false);
-            req.send(null);
-            if(req.status < 400) {
-                handleNewEntry(JSON.parse(req.responseText));
+    //Private Functions
+    function initEventListener(){
+        this.domElement.handleInput.addEventListener("keydown",function(event){
+            if(event.keyCode === 13) {
+                var req = Util.HttpGetRequest("http://localhost:3000/handle?name="+this.domElement.handleInput.value);
+                if(req.status < 400)
+                    handleNewEntry(JSON.parse(req.responseText));
+                else
+                    console.log('Cannot fetch tweets');
             }
-            else
-                console.log('Cannot fetch tweets');
-        }
-    }.bind(this));
+        }.bind(this));
+
+        this.domElement.atTheRateList.addEventListener("change", function (event) {
+            console.log(event.target.value);
+            console.log(event.target.checked);
+        });
+        this.domElement.hashTagList.addEventListener("change", function (event) {
+            console.log(event.target.value);
+            console.log(event.target.checked);
+        });
+    }
 
     var appendSymbolSet = function(symbol,tagSet,TagAddToDom){
         this.tweetlist.lastTweets.forEach(function(tweet){
             tweet[symbol].forEach(function(tag){
                 if(!tagSet.has(tag)){
                     tagSet.add(tag);
-                    TagAddToDom(tag);
+                    TagAddToDom.bind(this.domElement)(tag);
                 }
-            });
-        });
+            }.bind(this));
+        }.bind(this));
     }.bind(this);
 
     var handleNewEntry = function(tweetsArray){

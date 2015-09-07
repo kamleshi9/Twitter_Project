@@ -4,20 +4,23 @@
     margin-right: auto;
 }
 #displayDiv {
-    width: 1000px;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
     height: auto;
 }
 #atTheRate {
-    width:200px;
-    float:left;
+    width:300px;
+    float: left;
 }
 #tweets {
     width:600px;
-    float:left;
+    float: left;
 }
 #hashTag {
-    width:200px;
-    float:left;
+    width:300px;
+    float: left;
+}
+ul.list {
+    list-style-type: none;
 }

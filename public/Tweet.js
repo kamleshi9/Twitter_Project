@@ -8,6 +8,7 @@ function Tweet(textContent){
     this.hashTags = getSetOfWordsByTag("#");
     this.domTag = getDomTag();
 
+    //Private Functions
     function getSetOfWordsByTag(tag){
         var regularExpression = new RegExp("\\"+tag +"(\\w+)","g");
         var words = new Set(),
