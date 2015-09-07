@@ -7,6 +7,7 @@ function AppController(mainDiv){
     this.hashTagSet = new Set();
     this.atTheRateSet = new Set();
     this.domElement = new DomElement(mainDiv);
+    this.filter = new Filter();
     initEventListener.bind(this)();
 
     //Private Functions
@@ -22,14 +23,24 @@ function AppController(mainDiv){
         }.bind(this));
 
         this.domElement.atTheRateList.addEventListener("change", function (event) {
-            console.log(event.target.value);
-            console.log(event.target.checked);
-        });
+            //console.log(event.target.value);
+            //console.log(event.target.checked);
+            handleCheckBoxChange(this.filter.atTheRate,event.target);
+        }.bind(this));
         this.domElement.hashTagList.addEventListener("change", function (event) {
-            console.log(event.target.value);
-            console.log(event.target.checked);
-        });
+            //console.log(event.target.value);
+            //console.log(event.target.checked);
+            handleCheckBoxChange(this.filter.hashTag,event.target);
+        }.bind(this));
     }
+
+    var handleCheckBoxChange=function(tagSet,target){
+        if(target.checked == true)
+            tagSet.add(target.value);
+        else
+            tagSet.delete(target.value);
+        this.filter.filterTweetList(this.tweetlist);
+    }.bind(this);
 
     var appendSymbolSet = function(symbol,tagSet,TagAddToDom){
         this.tweetlist.lastTweets.forEach(function(tweet){

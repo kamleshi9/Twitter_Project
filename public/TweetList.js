@@ -12,5 +12,11 @@ TweetList.prototype.appendTweets = function (tweetTextArray) {
     tweetTextArray.forEach(function(tweetText){
         this.lastTweets.push(new Tweet(tweetText));
     }.bind(this));
-    this.tweets.concat(this.lastTweets);
+    this.tweets = this.tweets.concat(this.lastTweets);
+};
+
+TweetList.prototype.showAllTweets = function () {
+    this.tweets.forEach(function(tweet){
+        tweet.show();
+    });
 };

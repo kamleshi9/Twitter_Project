@@ -24,3 +24,11 @@ function Tweet(textContent){
     }
 }
 
+Tweet.prototype.show = function(){
+    this.domTag.style.display = "block";
+};
+
+Tweet.prototype.hide = function(){
+    this.domTag.style.display = "none";
+};
+

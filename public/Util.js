@@ -27,5 +27,13 @@ var Util = {
         req.open("GET", request, false);
         req.send(null);
         return req;
+    },
+    twoSetHasIntersection : function (set1,set2) {
+        var tmp = false;
+        set1.forEach(function (element) {
+            if(set2.has(element))
+                tmp = true;
+        });
+        return tmp;
     }
 };
