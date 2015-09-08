@@ -8,17 +8,13 @@ function AppController(mainDiv){
     this.atTheRateSet = new Set();
     this.domElement = new DomElement(mainDiv);
     this.filter = new Filter();
-    initEventListener.bind(this)();
+
 
     //Private Functions
-    function initEventListener(){
+    this._initEventListener = function(){
         this.domElement.handleInput.addEventListener("keydown",function(event){
             if(event.keyCode === 13) {
-                var req = Util.HttpGetRequest("http://localhost:3000/handle?name="+this.domElement.handleInput.value);
-                if(req.status < 400)
-                    handleNewEntry(JSON.parse(req.responseText));
-                else
-                    console.log('Cannot fetch tweets');
+                Util.HttpGetRequest("http://localhost:3000/handle?name="+this.domElement.handleInput.value,this.handleNewEntry);
             }
         }.bind(this));
 
@@ -32,7 +28,8 @@ function AppController(mainDiv){
             //console.log(event.target.checked);
             handleCheckBoxChange(this.filter.hashTag,event.target);
         }.bind(this));
-    }
+    };
+    this._initEventListener();
 
     var handleCheckBoxChange=function(tagSet,target){
         if(target.checked == true)
@@ -53,7 +50,7 @@ function AppController(mainDiv){
         }.bind(this));
     }.bind(this);
 
-    var handleNewEntry = function(tweetsArray){
+    this.handleNewEntry = function(tweetsArray){
         this.tweetlist.appendTweets(tweetsArray);
         this.domElement.appendTweets(this.tweetlist.lastTweets);
         updateAtTheRate();

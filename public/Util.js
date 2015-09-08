@@ -22,11 +22,16 @@ var Util = {
         element.setAttribute("class",className);
         return element;
     },
-    HttpGetRequest : function (request) {
+    HttpGetRequest : function (request, success) {
         var req = new XMLHttpRequest();
-        req.open("GET", request, false);
+        req.open("GET", request, true);
+        req.addEventListener("load",function(){
+            if(req.status < 400)
+                success(JSON.parse(req.responseText));
+            else
+                console.error('Cannot fetch tweets');
+        });
         req.send(null);
-        return req;
     },
     twoSetHasIntersection : function (set1,set2) {
         var tmp = false;

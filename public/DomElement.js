@@ -7,15 +7,15 @@ function DomElement(mainDiv){
     this.atTheRateList=Util.createElementWithIdAndClass("ul","atTheRateList","list");
     this.tweetList=Util.createElementWithIdAndClass("ul","tweetList","list");
     this.hashTagList=Util.createElementWithIdAndClass("ul","hashTagList","list");
-    this.init(mainDiv);
+    this._init(mainDiv);
 }
 
 DomElement.prototype.addAtTheRate = function (name) {
-    this.atTheRateList.appendChild(this.createNewListElement(name,"@"));
+    this.atTheRateList.appendChild(this._createNewListElement(name,"@"));
 };
 
 DomElement.prototype.addHashTag = function (name) {
-    this.hashTagList.appendChild(this.createNewListElement(name,"#"));
+    this.hashTagList.appendChild(this._createNewListElement(name,"#"));
 };
 
 DomElement.prototype.appendTweets = function (tweetsArray) {
@@ -24,7 +24,7 @@ DomElement.prototype.appendTweets = function (tweetsArray) {
     }.bind(this));
 };
 
-DomElement.prototype.init = function(mainDiv) {
+DomElement.prototype._init = function(mainDiv) {
     var inputDiv = Util.createElementWithId("div", "inputDiv");
     mainDiv.appendChild(inputDiv);
     this.handleInput.setAttribute("type", "text");
@@ -36,7 +36,7 @@ DomElement.prototype.init = function(mainDiv) {
     displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this.hashTagList).parentNode);
 };
 
-DomElement.prototype.createNewListElement = function(name, symbol) {
+DomElement.prototype._createNewListElement = function(name, symbol) {
     var element = document.createElement("li");
     element.appendChild(Util.createElementWithTypeAndValue("input", "checkbox",name));
     element.appendChild(document.createTextNode(symbol + name));
