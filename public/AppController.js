@@ -6,7 +6,7 @@ function AppController(mainDiv){
     this.tweetlist= new TweetList();
     this.hashTagSet = new Set();
     this.atTheRateSet = new Set();
-    this.domElement = new DomElement(mainDiv,this.handleNewEntry,this.handleAtTheRateEvent,this.handleHashTagEvent);
+    this.domElement = new DomElement(mainDiv,this.handleNewEntry.bind(this),this.handleAtTheRateEvent.bind(this),this.handleHashTagEvent.bind(this));
     this.filter = new Filter();
 }
 
