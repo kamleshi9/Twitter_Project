@@ -22,16 +22,26 @@ var Util = {
         element.setAttribute("class",className);
         return element;
     },
-    HttpGetRequest : function (request, success) {
+    httpGetRequest : function (request) {
         var req = new XMLHttpRequest();
+        var deffered = jQuery.Deferred();
         req.open("GET", request, true);
         req.addEventListener("load",function(){
-            if(req.status < 400)
-                success(JSON.parse(req.responseText));
+            if(req.status == 200)
+                deffered.resolve(JSON.parse(req.responseText));
+            else if(req.status == 404)
+                deffered.reject("Handle Doesn't exist");
             else
-                console.error('Cannot fetch tweets');
+                deffered.reject("Cannot fetch tweets");
         });
         req.send(null);
+        return deffered.promise();
+    },
+    fetchTweets : function (twitterHandle, success) {
+        var getRequestPromise = Util.httpGetRequest("http://localhost:3000/handle?name="+twitterHandle);
+        getRequestPromise.then(success, function (errorText) {
+            console.error(errorText);
+        });
     },
     twoSetHasIntersection : function (set1,set2) {
         var tmp = false;

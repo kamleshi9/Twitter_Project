@@ -49,7 +49,7 @@ DomElement.prototype._initDomStructure = function(mainDiv) {
 DomElement.prototype._initEventListener = function(newEntryHandler,atTheRatehandler,hashTahHandler){
     this.handleInput.addEventListener("keydown",function(event){
         if(event.keyCode === 13) {
-            Util.HttpGetRequest("http://localhost:3000/handle?name="+this.handleInput.value,newEntryHandler);
+            Util.fetchTweets(this.handleInput.value,newEntryHandler);
         }
     }.bind(this));
 
