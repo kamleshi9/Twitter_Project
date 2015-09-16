@@ -2,13 +2,13 @@
  * Created by kamlesh.m on 28-Aug-15.
  */
 
-function DomElement(mainDiv,newEntryHandler,atTheRatehandler,hashTahHandler){
+function DomElement(mainDiv,handlers){
     this.handleInput=Util.createElementWithId("input","inputHandle");
     this.atTheRateList=Util.createElementWithIdAndClass("ul","atTheRateList","list");
     this.tweetList=Util.createElementWithIdAndClass("ul","tweetList","list");
     this.hashTagList=Util.createElementWithIdAndClass("ul","hashTagList","list");
     this._initDomStructure(mainDiv);
-    this._initEventListener(newEntryHandler,atTheRatehandler,hashTahHandler);
+    this._initEventListener(handlers);
 }
 
 DomElement.prototype.addAtTheRate = function (name) {
@@ -46,17 +46,17 @@ DomElement.prototype._initDomStructure = function(mainDiv) {
     displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this.hashTagList).parentNode);
 };
 
-DomElement.prototype._initEventListener = function(newEntryHandler,atTheRatehandler,hashTahHandler){
+DomElement.prototype._initEventListener = function(handlers){
     this.handleInput.addEventListener("keydown",function(event){
         if(event.keyCode === 13) {
-            Util.fetchTweets(this.handleInput.value,newEntryHandler);
+            Util.fetchTweets(this.handleInput.value,handlers.newEntry);
         }
     }.bind(this));
 
     this.atTheRateList.addEventListener("change", function (event) {
-        atTheRatehandler(event.target);
+        handlers.atTheRate(event.target);
     });
     this.hashTagList.addEventListener("change", function (event) {
-        hashTahHandler(event.target);
+        handlers.hashTah(event.target);
     });
 };
