@@ -43,11 +43,11 @@ var Util = {
             console.error(errorText);
         });
     },
-    twoSetHasIntersection : function (set1,set2) {
-        var tmp = false;
-        set1.forEach(function (element) {
-            if(set2.has(element))
-                tmp = true;
+    secondSetIsSubsetOfFirst : function (set1,set2) {
+        var tmp = true;
+        set2.forEach(function (element) {
+            if(!set1.has(element))
+                tmp = false;
         });
         return tmp;
     }

@@ -11,7 +11,7 @@ Filter.prototype.filterTweetList = function (tweetList) {
         tweetList.showAllTweets();
     else{
         tweetList.tweets.forEach(function (tweet) {
-            if(Util.twoSetHasIntersection(tweet.atTheRates,this.atTheRate) || Util.twoSetHasIntersection(tweet.hashTags,this.hashTag)){
+            if(Util.secondSetIsSubsetOfFirst(tweet.atTheRates,this.atTheRate) && Util.secondSetIsSubsetOfFirst(tweet.hashTags,this.hashTag)){
                 tweet.show();
             }
             else
