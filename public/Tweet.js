@@ -6,15 +6,19 @@ function Tweet(textContent){
     this.text = textContent;
     this.atTheRates = this._getSetOfWordsByTag("@");
     this.hashTags = this._getSetOfWordsByTag("#");
-    this.domTag = this._getDomTag();
+    this._dom = this._getDomTag();
 }
 
+Tweet.prototype.getDom = function(){
+    return this._dom;
+};
+
 Tweet.prototype.show = function(){
-    this.domTag.style.display = "block";
+    this._dom.style.display = "block";
 };
 
 Tweet.prototype.hide = function(){
-    this.domTag.style.display = "none";
+    this._dom.style.display = "none";
 };
 
 Tweet.prototype._getSetOfWordsByTag = function (tag){

@@ -3,58 +3,60 @@
  */
 
 function AppController(mainDiv){
-    this.tweetlist= new TweetList();
-    this.hashTagSet = new Set();
-    this.atTheRateSet = new Set();
-    this.domElement = new DomElement(mainDiv,{
-        newEntry : this.handleNewEntry.bind(this),
-        atTheRate : this.handleAtTheRateEvent.bind(this),
-        hashTah : this.handleHashTagEvent.bind(this)
-    });
-    this.filter = new Filter();
+    this.tweetList= new TweetList();
+    this._hashTagList = new TagList("#",this.handleHashTagEvent.bind(this));
+    this._atTheRateList = new TagList("@",this.handleAtTheRateEvent.bind(this));
+    this._handleInput = new HandleInput(this.handleNewEntry.bind(this));
+    this._filter = new Filter();
+    this._initDomStructure(mainDiv);
 }
 
 AppController.prototype.handleNewEntry = function(tweetsArray){
-    this.tweetlist.appendTweets(tweetsArray);
-    this.domElement.appendTweets(this.tweetlist.lastTweets);
+    this.tweetList.appendTweets(tweetsArray);
     this._appendNewAtTheRates();
     this._appendNewHashTags();
 };
 
 AppController.prototype.handleAtTheRateEvent = function (target) {
-    this._handleCheckBoxChange(this.filter.atTheRate,target);
+    this._handleCheckBoxChange(this._filter.atTheRate,target);
 };
 
 AppController.prototype.handleHashTagEvent = function (target) {
-    this._handleCheckBoxChange(this.filter.hashTag,target);
+    this._handleCheckBoxChange(this._filter.hashTag,target);
 };
 
-
 // Private Members
+AppController.prototype._initDomStructure = function(mainDiv) {
+    var inputDiv = Util.createElementWithId("div", "inputDiv");
+    mainDiv.appendChild(inputDiv);
+    inputDiv.appendChild(this._handleInput._dom);
+    var displayDiv = Util.createElementWithId("div", "displayDiv");
+    mainDiv.appendChild(displayDiv);
+    displayDiv.appendChild(Util.createElementWithId("div", "atTheRate").appendChild(this._atTheRateList.getDom()).parentNode);
+    displayDiv.appendChild(Util.createElementWithId("div", "tweets").appendChild(this.tweetList.getDom()).parentNode);
+    displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this._hashTagList.getDom()).parentNode);
+};
 
 AppController.prototype._handleCheckBoxChange=function(tagSet,target){
     if(target.checked == true)
         tagSet.add(target.value);
     else
         tagSet.delete(target.value);
-    this.filter.filterTweetList(this.tweetlist);
+    this._filter.filterTweetList(this.tweetList);
 };
 
 AppController.prototype._appendNewAtTheRates = function(){
-    this._appendSymbolSet("atTheRates",this.atTheRateSet,this.domElement.addAtTheRate);
+    this._appendSymbolSet("atTheRates",this._atTheRateList);
 };
 
 AppController.prototype._appendNewHashTags = function(){
-    this._appendSymbolSet("hashTags",this.hashTagSet,this.domElement.addHashTag);
+    this._appendSymbolSet("hashTags",this._hashTagList);
 };
 
-AppController.prototype._appendSymbolSet = function(symbol,tagSet,TagAddToDom){
-    this.tweetlist.lastTweets.forEach(function(tweet){
+AppController.prototype._appendSymbolSet = function(symbol,tagList){
+    this.tweetList.lastTweets.forEach(function(tweet){
         tweet[symbol].forEach(function(tag){
-            if(!tagSet.has(tag)){
-                tagSet.add(tag);
-                TagAddToDom.bind(this.domElement)(tag);
-            }
-        }.bind(this));
-    }.bind(this));
+            tagList.add(tag);
+        });
+    });
 };

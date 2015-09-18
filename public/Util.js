@@ -22,7 +22,13 @@ var Util = {
         element.setAttribute("class",className);
         return element;
     },
-    httpGetRequest : function (request) {
+    createElementWithIdAndType : function(tag,id,type){
+        var element = this.createElementWithId(tag,id);
+        element.setAttribute("type",type);
+        return element;
+    },
+    fetchTweets : function (twitterHandle) {
+        var request = "http://localhost:3000/handle?name="+twitterHandle;
         var req = new XMLHttpRequest();
         var deffered = jQuery.Deferred();
         req.open("GET", request, true);
@@ -36,12 +42,6 @@ var Util = {
         });
         req.send(null);
         return deffered.promise();
-    },
-    fetchTweets : function (twitterHandle, success) {
-        var getRequestPromise = Util.httpGetRequest("http://localhost:3000/handle?name="+twitterHandle);
-        getRequestPromise.then(success, function (errorText) {
-            console.error(errorText);
-        });
     },
     secondSetIsSubsetOfFirst : function (set1,set2) {
         var tmp = true;
