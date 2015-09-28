@@ -1,5 +1,5 @@
-/public/lib/dojox
-/public/lib/dijit
-/public/lib/dojo
+/public/js/lib/dojox
+/public/js/lib/dojo
+/public/js/lib/dijit
 node_modules
 .idea

@@ -3,6 +3,10 @@
  **/
 var appController;
 
-window.addEventListener("load", function () {
+require([
+    "app/AppController",
+    "dojo/domReady!"
+], function (AppController) {
     appController = new AppController(document.getElementById("bodyDiv"));
 });
+
