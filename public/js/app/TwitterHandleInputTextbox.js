@@ -1,7 +1,7 @@
 /**
  * Created by kamlesh.m on 28-Aug-15.
  */
-define([ 'dojo/_base/declare'], function (declare) {
+define([ 'dojo/_base/declare','app/Util'], function (declare,Util) {
     return declare(null,{
         _dom : Util.createElementWithIdAndType("input","inputHandle","text"),
         constructor : function(newEntryEventHandler) {

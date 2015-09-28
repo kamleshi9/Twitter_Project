@@ -3,8 +3,9 @@
  */
 define([
     'dojo/_base/declare',
-    'app/Tweet'
-],function(declare,Tweet){
+    'app/Tweet',
+    'app/Util'
+],function(declare,Tweet,Util){
     return declare(null,
     {
         tweets : [],

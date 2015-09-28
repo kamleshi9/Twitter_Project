@@ -3,8 +3,9 @@
  */
 
 define([
-    'dojo/_base/declare'
-], function (declare) {
+    'dojo/_base/declare',
+    'app/Util'
+], function (declare,Util) {
     return declare(null,
         {
             constructor : function(symbol,eventHandler){

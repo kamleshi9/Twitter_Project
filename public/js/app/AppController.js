@@ -6,9 +6,11 @@ define([
         'app/TwitterHandleInputTextbox',
         'app/List',
         'app/TweetList',
+        'app/Filter',
+        'app/Util',
         'dojo/domReady!'
     ],
-    function (declare,TwitterHandleInputTextbox,List,TweetList) {
+    function (declare,TwitterHandleInputTextbox,List,TweetList,Filter,Util) {
     return declare(null,{
         tweetList : new TweetList(),
         _filter : new Filter(),
