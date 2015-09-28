@@ -3,6 +3,7 @@
  */
 define([
         'dojo/_base/declare',
+        'dojo/topic',
         'app/TwitterHandleInputTextbox',
         'app/List',
         'app/TweetList',
@@ -10,23 +11,17 @@ define([
         'app/Util',
         'dojo/domReady!'
     ],
-    function (declare,TwitterHandleInputTextbox,List,TweetList,Filter,Util) {
+    function (declare,topic,TwitterHandleInputTextbox,List,TweetList,Filter,Util) {
     return declare(null,{
-        tweetList : new TweetList(),
-        _filter : new Filter(),
 
         constructor : function(mainDiv) {
-            this._hashTagList = new List("#",this.handleHashTagEvent.bind(this));
-            this._atTheRateList = new List("@",this.handleAtTheRateEvent.bind(this));
-            this._twitterHandleInputTextbox = new TwitterHandleInputTextbox(this.handleNewEntry.bind(this));
-            var inputDiv = Util.createElementWithId("div", "inputDiv");
-            mainDiv.appendChild(inputDiv);
-            inputDiv.appendChild(this._twitterHandleInputTextbox._dom);
-            var displayDiv = Util.createElementWithId("div", "displayDiv");
-            mainDiv.appendChild(displayDiv);
-            displayDiv.appendChild(Util.createElementWithId("div", "atTheRate").appendChild(this._atTheRateList.getDom()).parentNode);
-            displayDiv.appendChild(Util.createElementWithId("div", "tweets").appendChild(this.tweetList.getDom()).parentNode);
-            displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this._hashTagList.getDom()).parentNode);
+            this.tweetList = new TweetList();
+            this._filter = new Filter();
+            this._hashTagList = new List("#");
+            this._atTheRateList = new List("@");
+            this._twitterHandleInputTextbox = new TwitterHandleInputTextbox();
+            this._initDomStructure(mainDiv);
+            this._initSubscribers();
         },
         handleNewEntry : function(tweetsArray){
             this.tweetList.appendTweets(tweetsArray);
@@ -38,6 +33,23 @@ define([
         },
         handleHashTagEvent : function (target) {
             this._handleCheckBoxChange(this._hashTagList.checkedSet,target);
+        },
+
+
+        _initSubscribers : function(){
+            topic.subscribe("newEntry",this.handleNewEntry.bind(this));
+            topic.subscribe("newFilterRequestOf#",this.handleHashTagEvent.bind(this));
+            topic.subscribe("newFilterRequestOf@",this.handleAtTheRateEvent.bind(this));
+        },
+        _initDomStructure : function(mainDiv){
+            var inputDiv = Util.createElementWithId("div", "inputDiv");
+            mainDiv.appendChild(inputDiv);
+            inputDiv.appendChild(this._twitterHandleInputTextbox._dom);
+            var displayDiv = Util.createElementWithId("div", "displayDiv");
+            mainDiv.appendChild(displayDiv);
+            displayDiv.appendChild(Util.createElementWithId("div", "atTheRate").appendChild(this._atTheRateList.getDom()).parentNode);
+            displayDiv.appendChild(Util.createElementWithId("div", "tweets").appendChild(this.tweetList.getDom()).parentNode);
+            displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this._hashTagList.getDom()).parentNode);
         },
         _handleCheckBoxChange : function(tagSet,target){
             if(target.checked == true)

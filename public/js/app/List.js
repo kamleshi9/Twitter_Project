@@ -4,17 +4,18 @@
 
 define([
     'dojo/_base/declare',
+    'dojo/topic',
     'app/Util'
-], function (declare,Util) {
+], function (declare,topic,Util) {
     return declare(null,
         {
-            constructor : function(symbol,eventHandler){
+            constructor : function(symbol){
                 this._set = new Set();
                 this.checkedSet = new Set();
                 this._dom = Util.createElementWithClass("ul","list");
                 this._symbol = symbol;
                 this._dom.addEventListener("change", function (event) {
-                    eventHandler(event.target);
+                    topic.publish("newFilterRequestOf"+symbol,event.target);
                 });
             },
             getDom : function(){
