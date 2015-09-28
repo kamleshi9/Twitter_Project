@@ -1,2 +1,5 @@
+/public/lib/dojox
+/public/lib/dijit
+/public/lib/dojo
 node_modules
 .idea
