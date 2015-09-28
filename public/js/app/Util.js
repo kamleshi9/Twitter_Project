@@ -3,7 +3,7 @@
  */
 
 
-define([],function(){
+define(["dojo/_base/Deferred"],function(Deferred){
    return  {
        createElementWithId : function(tag,id){
            var element = document.createElement(tag);
@@ -38,18 +38,18 @@ define([],function(){
        fetchTweets : function (twitterHandle) {
            var request = "http://localhost:3000/handle?name="+twitterHandle;
            var req = new XMLHttpRequest();
-           var deffered = jQuery.Deferred();
+           var deferred = new Deferred();
            req.open("GET", request, true);
            req.addEventListener("load",function(){
                if(req.status == 200)
-                   deffered.resolve(JSON.parse(req.responseText));
+                   deferred.resolve(JSON.parse(req.responseText));
                else if(req.status == 404)
-                   deffered.reject("Handle Doesn't exist");
+                   deferred.reject("Handle Doesn't exist");
                else
-                   deffered.reject("Cannot fetch tweets");
+                   deferred.reject("Cannot fetch tweets");
            });
            req.send(null);
-           return deffered.promise();
+           return deferred;
        },
        secondSetIsSubsetOfFirst : function (set1,set2) {
            var tmp = true;
