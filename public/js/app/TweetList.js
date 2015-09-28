@@ -2,8 +2,9 @@
  * Created by kamlesh.m on 27-Aug-15.
  */
 define([
-    'dojo/_base/declare'
-],function(declare){
+    'dojo/_base/declare',
+    'app/Tweet'
+],function(declare,Tweet){
     return declare(null,
     {
         tweets : [],
