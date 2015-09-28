@@ -2,10 +2,11 @@
  * Created by kamlesh.m on 31-Aug-15.
  */
 define([
-    'dojo/_base/declare',
-    'app/TwitterHandleInputTextbox'
+        'dojo/_base/declare',
+        'app/TwitterHandleInputTextbox',
+        'app/TweetList'
     ],
-    function (declare,TwitterHandleInputTextbox) {
+    function (declare,TwitterHandleInputTextbox,TweetList) {
     return declare(null,{
         tweetList : new TweetList(),
         _filter : new Filter(),
