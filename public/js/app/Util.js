@@ -7,6 +7,11 @@ var Util = {
         element.id = id;
         return element;
     },
+    createElementWithClass : function(tag,className){
+        var element = document.createElement(tag);
+        element.setAttribute("class",className);
+        return element;
+    },
     createElementWithValue : function(tag,value){
         var element = document.createElement(tag);
         element.setAttribute("value",value);
