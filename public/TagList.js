@@ -3,6 +3,7 @@
  */
 function TagList(symbol,eventHandler){
     this._set = new Set();
+    this.checkedSet = new Set();
     this._symbol = symbol;
     this._dom = Util.createElementWithIdAndClass("ul","_atTheRateList","list");
     this._initEventHandler(eventHandler);

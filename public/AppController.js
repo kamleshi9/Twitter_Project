@@ -18,11 +18,11 @@ AppController.prototype.handleNewEntry = function(tweetsArray){
 };
 
 AppController.prototype.handleAtTheRateEvent = function (target) {
-    this._handleCheckBoxChange(this._filter.atTheRate,target);
+    this._handleCheckBoxChange(this._atTheRateList.checkedSet,target);
 };
 
 AppController.prototype.handleHashTagEvent = function (target) {
-    this._handleCheckBoxChange(this._filter.hashTag,target);
+    this._handleCheckBoxChange(this._hashTagList.checkedSet,target);
 };
 
 // Private Members
@@ -42,7 +42,7 @@ AppController.prototype._handleCheckBoxChange=function(tagSet,target){
         tagSet.add(target.value);
     else
         tagSet.delete(target.value);
-    this._filter.filterTweetList(this.tweetList);
+    this._filter.filterTweetList(this.tweetList,this._atTheRateList.checkedSet,this._hashTagList.checkedSet);
 };
 
 AppController.prototype._appendNewAtTheRates = function(){

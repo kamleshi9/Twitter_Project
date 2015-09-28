@@ -2,16 +2,15 @@
  * Created by kamlesh.m on 07-Sep-15.
  */
 function Filter(){
-    this.atTheRate = new Set();
-    this.hashTag = new Set();
+
 }
 
-Filter.prototype.filterTweetList = function (tweetList) {
-    if(this.atTheRate.size == 0 && this.hashTag.size == 0)
+Filter.prototype.filterTweetList = function (tweetList,atTheRate,hashTag) {
+    if(atTheRate.size == 0 && hashTag.size == 0)
         tweetList.showAllTweets();
     else{
         tweetList.tweets.forEach(function (tweet) {
-            if(Util.secondSetIsSubsetOfFirst(tweet.atTheRates,this.atTheRate) && Util.secondSetIsSubsetOfFirst(tweet.hashTags,this.hashTag)){
+            if(Util.secondSetIsSubsetOfFirst(tweet.atTheRates,atTheRate) && Util.secondSetIsSubsetOfFirst(tweet.hashTags,hashTag)){
                 tweet.show();
             }
             else
