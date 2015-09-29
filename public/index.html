@@ -10,17 +10,14 @@
 <link rel="stylesheet" type="text/css" href="index.css">
 <script>
     var dojoConfig = {
-        baseUrl: "/js/",
         packages: [
-            { name: "dojo", location: "lib/dojo" },
-            { name: "dijit", location: "lib/dijit" },
-            { name: "dojox", location: "lib/dojox" },
-            { name: "app", location: "app"}
+            { name: "app",
+                location: location.pathname.replace(/\/[^/]*$/, '') + '/js/app'}
         ],
         async: true
     };
 </script>
-<script src="js/lib/dojo/dojo.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.7.8/dojo/dojo.js"></script>
 <script src="js/app/main.js"></script>
 </body>
 </html>
