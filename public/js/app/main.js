@@ -2,9 +2,10 @@
  * Created by kamlesh.m on 11-Aug-15.
  **/
 require([
+    "dojo/dom",
     "app/AppController",
     "dojo/domReady!"
-], function (AppController) {
-    var appController = new AppController(document.getElementById("bodyDiv"));
+], function (dom,AppController) {
+    var appController = new AppController(dom.byId("bodyDiv"));
 });
 
