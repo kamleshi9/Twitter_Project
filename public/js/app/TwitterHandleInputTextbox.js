@@ -11,6 +11,7 @@ define([ 'dojo/_base/declare','dojo/topic','dojo/dom-construct','dojo/on','app/U
                         topic.publish("newEntry",tweetArray);
                     }, function (errorText) {
                         console.error(errorText);
+                        console.log("Cannot fetch tweets");
                     });
                 }
             }.bind(this));

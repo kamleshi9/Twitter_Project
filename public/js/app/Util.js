@@ -3,23 +3,13 @@
  */
 
 
-define(["dojo/_base/Deferred","dojo/_base/xhr"],function(Deferred,xhr){
+define(["dojo/_base/xhr"],function(xhr){
    return  {
        fetchTweets : function (twitterHandle) {
-           var deferred = new Deferred();
-           xhr.get({
+           return xhr.get({
                url : "http://localhost:3000/handle?name="+twitterHandle,
-               handleAs : "json",
-
-               load : function(data){
-                   deferred.resolve(data);
-               },
-               error : function(data){
-                   console.log(data);
-                   deferred.reject("Cannot fetch tweets");
-               }
+               handleAs : "json"
            });
-           return deferred;
        },
        secondSetIsSubsetOfFirst : function (set1,set2) {
            var tmp = true;
