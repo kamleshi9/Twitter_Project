@@ -3,22 +3,22 @@
  */
 
 
-define(["dojo/_base/Deferred"],function(Deferred){
+define(["dojo/_base/Deferred","dojo/_base/xhr"],function(Deferred,xhr){
    return  {
        fetchTweets : function (twitterHandle) {
-           var request = "http://localhost:3000/handle?name="+twitterHandle;
-           var req = new XMLHttpRequest();
            var deferred = new Deferred();
-           req.open("GET", request, true);
-           req.addEventListener("load",function(){
-               if(req.status == 200)
-                   deferred.resolve(JSON.parse(req.responseText));
-               else if(req.status == 404)
-                   deferred.reject("Handle Doesn't exist");
-               else
+           xhr.get({
+               url : "http://localhost:3000/handle?name="+twitterHandle,
+               handleAs : "json",
+
+               load : function(data){
+                   deferred.resolve(data);
+               },
+               error : function(data){
+                   console.log(data);
                    deferred.reject("Cannot fetch tweets");
+               }
            });
-           req.send(null);
            return deferred;
        },
        secondSetIsSubsetOfFirst : function (set1,set2) {
