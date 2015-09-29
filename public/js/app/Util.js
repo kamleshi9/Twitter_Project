@@ -5,36 +5,6 @@
 
 define(["dojo/_base/Deferred"],function(Deferred){
    return  {
-       createElementWithId : function(tag,id){
-           var element = document.createElement(tag);
-           element.id = id;
-           return element;
-       },
-       createElementWithClass : function(tag,className){
-           var element = document.createElement(tag);
-           element.setAttribute("class",className);
-           return element;
-       },
-       createElementWithValue : function(tag,value){
-           var element = document.createElement(tag);
-           element.setAttribute("value",value);
-           return element;
-       },
-       createElementWithTypeAndValue : function(tag,type,value){
-           var inputElement = this.createElementWithValue("input",value);
-           inputElement.type=type;
-           return inputElement;
-       },
-       createElementWithIdAndClass : function(tag,id,className){
-           var element = this.createElementWithId(tag,id);
-           element.setAttribute("class",className);
-           return element;
-       },
-       createElementWithIdAndType : function(tag,id,type){
-           var element = this.createElementWithId(tag,id);
-           element.setAttribute("type",type);
-           return element;
-       },
        fetchTweets : function (twitterHandle) {
            var request = "http://localhost:3000/handle?name="+twitterHandle;
            var req = new XMLHttpRequest();
