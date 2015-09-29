@@ -6,14 +6,14 @@ define([
     'dojo/_base/declare',
     'dojo/topic',
     'dojo/on',
-    'app/Util'
-], function (declare,topic,on,Util) {
+    'dojo/dom-construct'
+], function (declare,topic,on,domConstruct) {
     return declare(null,
         {
             constructor : function(symbol){
                 this._set = new Set();
                 this.checkedSet = new Set();
-                this._dom = Util.createElementWithClass("ul","list");
+                this._dom = domConstruct.create("ul",{className : "list"});
                 this._symbol = symbol;
                 on(this._dom,"change", function (event) {
                     topic.publish("newFilterRequestOf"+symbol,event.target);
@@ -29,9 +29,9 @@ define([
                 }
             },
             _createNewListElement : function(tag){
-                var element = document.createElement("li");
-                element.appendChild(Util.createElementWithTypeAndValue("input", "checkbox",tag));
-                element.appendChild(document.createTextNode(this._symbol + tag));
+                var element = domConstruct.create("li");
+                element.appendChild(domConstruct.create("input", {type : "checkbox", value : tag}));
+                element.innerHTML += this._symbol + tag;
                 return element;
             }
         });

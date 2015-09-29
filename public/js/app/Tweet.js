@@ -2,8 +2,9 @@
  * Created by kamlesh.m on 27-Aug-15.
  */
 define([
-    'dojo/_base/declare'
-], function (declare) {
+    'dojo/_base/declare',
+    'dojo/dom-construct'
+], function (declare,domConstruct) {
     return declare(null,
         {
             constructor : function(textContent){
@@ -33,7 +34,7 @@ define([
                 return words;
             },
             _getDomTag : function(){
-                return document.createElement("li").appendChild(document.createTextNode(this.text)).parentNode;
+                return domConstruct.create("li",{innerHTML : this.text});
             }
         });
 });

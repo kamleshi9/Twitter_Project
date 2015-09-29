@@ -4,14 +4,14 @@
 define([
         'dojo/_base/declare',
         'dojo/topic',
+        'dojo/dom-construct',
         'app/TwitterHandleInputTextbox',
         'app/List',
         'app/TweetList',
         'app/Filter',
-        'app/Util',
         'dojo/domReady!'
     ],
-    function (declare,topic,TwitterHandleInputTextbox,List,TweetList,Filter,Util) {
+    function (declare,topic,domConstruct,TwitterHandleInputTextbox,List,TweetList,Filter) {
     return declare(null,{
 
         constructor : function(mainDiv) {
@@ -42,14 +42,12 @@ define([
             topic.subscribe("newFilterRequestOf@",this.handleAtTheRateEvent.bind(this));
         },
         _initDomStructure : function(mainDiv){
-            var inputDiv = Util.createElementWithId("div", "inputDiv");
-            mainDiv.appendChild(inputDiv);
+            var inputDiv = domConstruct.create("div", {id : "inputDiv"},mainDiv);
             inputDiv.appendChild(this._twitterHandleInputTextbox._dom);
-            var displayDiv = Util.createElementWithId("div", "displayDiv");
-            mainDiv.appendChild(displayDiv);
-            displayDiv.appendChild(Util.createElementWithId("div", "atTheRate").appendChild(this._atTheRateList.getDom()).parentNode);
-            displayDiv.appendChild(Util.createElementWithId("div", "tweets").appendChild(this.tweetList.getDom()).parentNode);
-            displayDiv.appendChild(Util.createElementWithId("div", "hashTag").appendChild(this._hashTagList.getDom()).parentNode);
+            var displayDiv = domConstruct.create("div", {id : "displayDiv"},mainDiv);
+            domConstruct.create("div", {id : "atTheRate"},displayDiv).appendChild(this._atTheRateList.getDom());
+            domConstruct.create("div", {id : "tweets"},displayDiv).appendChild(this.tweetList.getDom());
+            domConstruct.create("div", {id : "hashTag"},displayDiv).appendChild(this._hashTagList.getDom());
         },
         _handleCheckBoxChange : function(tagSet,target){
             if(target.checked == true)
@@ -75,4 +73,3 @@ define([
         }
     });
 });
-

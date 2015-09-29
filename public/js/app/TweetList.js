@@ -3,14 +3,14 @@
  */
 define([
     'dojo/_base/declare',
-    'app/Tweet',
-    'app/Util'
-],function(declare,Tweet,Util){
+    'dojo/dom-construct',
+    'app/Tweet'
+],function(declare,domConstruct,Tweet){
     return declare(null,
     {
         tweets : [],
         lastTweets : [],
-        _dom : Util.createElementWithIdAndClass("ul","tweetList","list"),
+        _dom : domConstruct.create("ul",{id : "tweetList", className : "list"}),
 
 
         getDom : function () {
