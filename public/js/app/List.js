@@ -6,8 +6,9 @@ define([
     'dojo/_base/declare',
     'dojo/topic',
     'dojo/on',
-    'dojo/dom-construct'
-], function (declare,topic,on,domConstruct) {
+    'dojo/dom-construct',
+    'app/widget/CheckboxWidget'
+], function (declare,topic,on,domConstruct,CheckboxWidget) {
     return declare(null,
         {
             constructor : function(symbol){
@@ -25,14 +26,9 @@ define([
             add : function(tag){
                 if(!this._set.has(tag)) {
                     this._set.add(tag);
-                    this._dom.appendChild(this._createNewListElement(tag));
+                    var checkbox = new CheckboxWidget( {name: tag, symbol: this._symbol} );
+                    this._dom.appendChild(checkbox.getDom());
                 }
-            },
-            _createNewListElement : function(tag){
-                var element = domConstruct.create("li");
-                element.appendChild(domConstruct.create("input", {type : "checkbox", value : tag}));
-                element.innerHTML += this._symbol + tag;
-                return element;
             }
         });
 });

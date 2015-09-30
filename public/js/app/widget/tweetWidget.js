@@ -10,7 +10,6 @@ define([
     ],
     function(declare, WidgetBase, TemplatedMixin,template,domStyle){
         return declare([WidgetBase, TemplatedMixin], {
-            text : "Tweet Text",
             templateString: template,
             baseClass: "tweetWidget",
             postCreate : function(){
