@@ -4,8 +4,8 @@
 define([
     'dojo/_base/declare',
     'dojo/dom-construct',
-    'app/Tweet'
-],function(declare,domConstruct,Tweet){
+    'app/widget/TweetWidget'
+],function(declare,domConstruct,TweetWidget){
     return declare(null,
     {
         tweets : [],
@@ -20,9 +20,8 @@ define([
         appendTweets : function (tweetTextArray) {
             this.lastTweets = [];
             tweetTextArray.forEach(function(tweetText){
-                var tweet = new Tweet(tweetText);
+                var tweet = new TweetWidget({text : tweetText}).placeAt(this._dom);
                 this.lastTweets.push(tweet);
-                this._dom.appendChild(tweet.getDom());
             }.bind(this));
             this.tweets = this.tweets.concat(this.lastTweets);
         },
