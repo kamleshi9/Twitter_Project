@@ -1,3 +1,4 @@
 .checkboxWidget{
-    padding: 5px;
+    font: 200 18px/1.5 Helvetica, Verdana, sans-serif;
+    border-bottom: 1px solid #ccc;
 }
